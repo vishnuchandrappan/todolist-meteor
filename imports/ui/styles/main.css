@@ -75,6 +75,7 @@ a {
 .container {
   max-width: 60%;
   margin: auto;
+  transition: 0.3s;
   padding-bottom: 3rem;
 }
 

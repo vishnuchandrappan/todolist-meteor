@@ -16,12 +16,31 @@ export const HomeContainer = ({ user = null }) => {
     },
   };
 
-  const tasks = useTracker(() =>
-    TasksCollection.find(
+  const { tasks, pendingTasksCount, tasksCount } = useTracker(() => {
+    const noDataAvailable = { tasks: [], pendingTasksCount: 0 };
+    if (!Meteor.user()) {
+      return { ...noDataAvailable };
+    }
+    const handler = Meteor.subscribe("tasks");
+
+    if (!handler.ready()) {
+      return { ...noDataAvailable };
+    }
+
+    const tasks = TasksCollection.find(
       showCompleted ? conditions : { ...conditions, completed: showCompleted },
       options
-    ).fetch()
-  );
+    ).fetch();
+
+    const pendingTasksCount = TasksCollection.find({
+      ...conditions,
+      completed: false,
+    }).count();
+
+    const tasksCount = TasksCollection.find(conditions).count();
+
+    return { tasks, pendingTasksCount, tasksCount };
+  });
 
   const handleDelete = (_id) => {
     confirmation = confirm(`Are you sure you want to delete task #${_id} ?`);
@@ -32,12 +51,6 @@ export const HomeContainer = ({ user = null }) => {
   const handleClick = (_id, completed) => {
     Meteor.call("tasks.update", _id, completed);
   };
-
-  const pendingTasksCount = useTracker(() =>
-    TasksCollection.find({ ...conditions, completed: false }).count()
-  );
-
-  const tasksCount = useTracker(() => TasksCollection.find(conditions).count());
 
   return (
     <Home
