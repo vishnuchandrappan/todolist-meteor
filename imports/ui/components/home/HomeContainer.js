@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Home } from "./Home";
 import { useTracker } from "meteor/react-meteor-data";
-import { TasksCollection } from "../../../api/TasksCollection.js";
+import { TasksCollection } from "../../../db/TasksCollection";
 
 export const HomeContainer = ({ user = null }) => {
   const [showCompleted, setShowCompleted] = useState(true);
@@ -26,15 +26,11 @@ export const HomeContainer = ({ user = null }) => {
   const handleDelete = (_id) => {
     confirmation = confirm(`Are you sure you want to delete task #${_id} ?`);
     if (!confirmation) return;
-    TasksCollection.remove(_id);
+    Meteor.call("tasks.remove", _id);
   };
 
   const handleClick = (_id, completed) => {
-    TasksCollection.update(_id, {
-      $set: {
-        completed,
-      },
-    });
+    Meteor.call("tasks.update", _id, completed);
   };
 
   const pendingTasksCount = useTracker(() =>

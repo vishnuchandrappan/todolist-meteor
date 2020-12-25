@@ -1,15 +1,23 @@
 import React from "react";
 import { Plus } from "react-feather";
+import Typed from "react-typed";
 
 export const NewTask = ({ handleChange, handleSubmit, task }) => {
   return (
     <form onSubmit={handleSubmit} className="new-task">
-      <input
-        type="text"
-        placeholder="Type something... Eg: one, two, three"
-        value={task}
-        onChange={handleChange}
-      />
+      <Typed
+        strings={[
+          "Add your todo; => Learn Meteor",
+          "Add multiple tasks at a time; => Learn Python, Learn Flask",
+          "foo, bar, baz",
+        ]}
+        typeSpeed={40}
+        backSpeed={50}
+        attr="placeholder"
+        loop
+      >
+        <input type="text" value={task} onChange={handleChange} />
+      </Typed>
 
       <div className="btn-container">
         <button className="btn" type="submit">

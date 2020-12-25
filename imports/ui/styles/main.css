@@ -10,6 +10,11 @@ body {
   font-family: var(--font1);
 }
 
+a {
+  text-decoration: none;
+  color: inherits;
+}
+
 .page-title {
   padding-bottom: 0.6rem;
   border-bottom: solid 2px rgba(0, 0, 0, 0.1);
@@ -151,6 +156,7 @@ body {
 .login--form {
   display: flex;
   flex-direction: column;
+  padding: 0 1rem;
 }
 
 .login--form label {
@@ -191,4 +197,54 @@ body {
   justify-content: center;
   margin-top: 25vh;
   color: rgba(0, 0, 0, 0.7);
+}
+
+.link-container {
+  padding: 0 1rem;
+}
+
+.link::before {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: solid 4px cadetblue;
+  transform: translateY(4px);
+  transition: 0.3s;
+}
+
+.link {
+  text-decoration: none;
+  color: cadetblue;
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-bottom: solid 4px rgba(95, 158, 160, 0.4);
+}
+
+.link:hover::before {
+  border-color: cadetblue;
+  width: 100%;
+}
+
+.full-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.full-page h1 {
+  font-size: 8rem;
+}
+
+.full-page h2 {
+  font-size: 2.5rem;
 }

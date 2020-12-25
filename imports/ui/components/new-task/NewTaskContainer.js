@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { TasksCollection } from "../../../api/TasksCollection";
 import { NewTask } from "./NewTask";
 
 export const NewTaskContainer = (props) => {
@@ -15,13 +14,8 @@ export const NewTaskContainer = (props) => {
 
     tasks = task.split(",");
 
-    tasks.forEach((data) => {
-      TasksCollection.insert({
-        text: data,
-        completed: false,
-        created_at: new Date(),
-        user_id: user._id,
-      });
+    tasks.forEach((text) => {
+      Meteor.call("tasks.insert", text);
     });
 
     setTask("");

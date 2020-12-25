@@ -1,6 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export const Login = ({ handleSubmit, setUsername, setPassword, username, password }) => {
+export const Login = ({
+  handleSubmit,
+  setUsername,
+  setPassword,
+  username,
+  password,
+}) => {
   return (
     <div className="login">
       <h1 className="page-title">Login</h1>
@@ -28,6 +35,13 @@ export const Login = ({ handleSubmit, setUsername, setPassword, username, passwo
           </button>
         </div>
       </form>
+
+      <div className="link-container">
+        Don't have an account ?
+        <Link to="/signup" className="link">
+          Signup !
+        </Link>
+      </div>
     </div>
   );
 };
